@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <component :is="layout"><router-view/></component>
+    <component :is="layout">
+    	<router-view/>
+    </component>
   </div>
 </template>
 
@@ -21,5 +23,5 @@
 
 <style lang="sass">
 @import '~materialize-css/dist/css/materialize.min.css';
-
+@import 'assets/index.css';
 </style>
