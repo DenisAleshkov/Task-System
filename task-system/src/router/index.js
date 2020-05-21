@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 const routes = [
   {
-    path: '/home',
+    path: '/',
     name: 'home',
     meta: { layout: 'empty' },
     component: () => import('../views/Home.vue')
@@ -58,7 +58,7 @@ const routes = [
     component: () => import('../views/Profile.vue')
   },
   {
-    path: '/',
+    path: '/total',
     name: 'total',
     meta: { layout: 'main' },
     component: () => import('../views/Total.vue')

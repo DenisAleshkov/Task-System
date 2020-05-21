@@ -1,6 +1,5 @@
 <template>
   <div>
-
       <nav class="navbar">
         <div class="nav-wrapper">
           <a href="/" class="nav-logo">
@@ -8,49 +7,16 @@
           </a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <div class="home-modal">
-              <a class="btn waves-effect waves-teal modal-trigger modal-button" href="#modal1">
+              <router-link class="btn waves-effect waves-teal header-button" to="/login">
+                <i class="material-icons">add</i>Ввойти
+              </router-link>
+              <router-link class="btn waves-effect waves-teal header-button" to="/register">
                 <i class="material-icons">add</i>Зарегестрироваться
-              </a>
-              <div id="modal1" class="modal">
-                <div class="modal-content">
-                    <div class="row auth">
-            <div class="col s6 offset-s3 auth-wrapper">
-                <div class="row auth-box">
-                    <form class="col s12 auth-form">
-                        <div class="auth-title">
-                            <h1 >
-                            Зарегестрировать Аккаунт
-                            </h1>
-                        </div>
-                        <div class="row auth-item">
-                            <div class="input-field col s12">
-                                <input id="email" type="email" class="auth-input validate" onChange={changeHandle />
-                                <label htmlFor="email">Email</label>
-                            </div>
-                        </div>
-                        <div class="row auth-item">
-                            <div class="input-field col s12">
-                                <input id="password" type="password" class="auth-input validate" onChange={changeHandle />
-                                <label htmlFor="password">Password</label>
-                            </div>
-                        </div>
-                        <div class="auth-footer auth-button">
-                            <button class="btn waves-effect waves-teal auth-button__login" >
-                                Войти
-                        </button>
-                            <button class="btn   auth-button__register">Регистрация</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-                </div>
-              </div>
+              </router-link>
             </div>
           </ul>
         </div>
       </nav>
-
     <div class="home-banner banner">
       <div class="banner-wrapper center-align container">
         <div class="banner-title title">
@@ -95,7 +61,7 @@
 .title-text
   font-size: 3rem
   margin: 0
-.modal-button
+.header-button
   font-weight: 600
   background-color: #ffffff
   color: #2196f3

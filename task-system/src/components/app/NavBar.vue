@@ -40,7 +40,7 @@
     },
     methods: {
         logout(){
-          this.$router.push('/home?message=logout');
+          this.$router.push('/login?message=logout');
       }
     },
     beforeDestroy() {
