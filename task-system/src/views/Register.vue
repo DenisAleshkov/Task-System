@@ -101,7 +101,7 @@
       }
     },
     methods: {
-      submitHandler() {
+      async submitHandler() {
         if(this.$v.$invalid) {
           this.$v.$touch()
           return
@@ -112,8 +112,14 @@
           password: this.password,
           name: this.name
         }
+        try{
+          await this.$store.dispatch('register', formData)
+          this.$router.push('/total')
+        }
+        catch(e){
 
-        console.log(formData)
+        }
+
       }
     }
   }
