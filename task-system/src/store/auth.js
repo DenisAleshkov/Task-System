@@ -10,15 +10,17 @@ export default {
 				throw e
 			}
 		},
-		async logout(){
+		async logout({commit}){
 			await firebase.auth().signOut()
+			commit('clearInfo')
 		},
-		async register({ dispatch, commit }, { email, password, name }){
+		async register({ dispatch, commit }, { email, password, name, countTasks }){
 			try {
 				await firebase.auth().createUserWithEmailAndPassword(email, password)
 				const uid = await dispatch('getUid')
 				await firebase.database().ref(`/users/${uid}/info`).set({
-					name
+					name,
+					countTasks: 0
 				})
 			}
 			catch(e) {
