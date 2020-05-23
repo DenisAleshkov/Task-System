@@ -2,15 +2,11 @@
  <div>
     <div class="page-title">
       <h3>Статистика</h3>
-
       <button class="btn waves-effect waves-light btn-small">
         <i class="material-icons">refresh</i>
       </button>
     </div>
-
-    <Loader v-if="loading" /> 
-
-    <div v-else class="row">
+    <div class="row">
       <HomeTotalTasks :countTasks="countTasks" />
       <HomeUpcomingTasks  />
   </div>
