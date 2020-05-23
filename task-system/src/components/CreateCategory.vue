@@ -52,11 +52,22 @@
 			description: {required}
 		},
 		methods: {
-			submitHandler() {
+			async submitHandler() {
 				if(this.$v.$invalid){
 					this.$v.$touch()
 					return
 				}
+				try{
+				const category = await this.$store.dispatch('createCategory', {
+					title: this.title,
+					description: this.description
+					})
+				this.title = ''
+				this.description = ''
+				this.$v.$reset()
+				this.$message('Категория создана')
+				this.$emit('created', category)
+				}catch(e) {}
 			}
 		}
 
