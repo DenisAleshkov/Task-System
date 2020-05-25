@@ -83,7 +83,6 @@ import { required } from 'vuelidate/lib/validators'
     },
     created(){
       const {id, title, description} = this.categories[0]
-      console.log("this.categories[0]", this.categories[0]);
       this.current = id
       this.title = title
       this.description = description
