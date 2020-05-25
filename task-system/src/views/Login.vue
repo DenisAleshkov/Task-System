@@ -2,6 +2,7 @@
 <form class="card auth-card" @submit.prevent="submitHandler">
   <div class="card-content">
     <span class="card-title">Вход в Task System</span>
+    <Loader v-if="loading" />
     <div class="input-field">
       <input
           id="email"
@@ -63,7 +64,8 @@
     name: 'login',
     data: () => ({
       email: '',
-      password: ''
+      password: '',
+      loading: false
     }),
     validations: {
       email: {
@@ -91,10 +93,14 @@
           password: this.password
         }
         try{
+          this.loading = true
           await this.$store.dispatch('login', formData)
+          this.loading = false
           this.$router.push('/total')
         }
-        catch(e){}
+        catch(e){
+          this.loading = false
+        }
       }
     },
 

@@ -2,6 +2,7 @@
 	<form class="card auth-card" @submit.prevent="submitHandler">
   <div class="card-content">
     <span class="card-title">Зарегистрировать аккаунт</span>
+    <Loader v-if="loading" />
     <div class="input-field">
       <input
           id="email"
@@ -82,7 +83,8 @@
       email: '',
       password: '',
       name: '',
-      agree: false
+      agree: false,
+      loading: false
     }),
     validations: {
       email: {
@@ -113,11 +115,13 @@
           name: this.name
         }
         try{
+          this.loading = true
           await this.$store.dispatch('register', formData)
+          this.loading = false
           this.$router.push('/total')
         }
         catch(e){
-
+          this.loading = false
         }
 
       }

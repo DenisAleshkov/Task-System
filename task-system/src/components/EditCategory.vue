@@ -83,6 +83,7 @@ import { required } from 'vuelidate/lib/validators'
     },
     created(){
       const {id, title, description} = this.categories[0]
+      console.log("this.categories[0]", this.categories[0]);
       this.current = id
       this.title = title
       this.description = description
@@ -102,7 +103,6 @@ import { required } from 'vuelidate/lib/validators'
             await this.$store.dispatch('updateCategory', categoryData)
             this.$message('Категория успешно обновлена')
             this.$emit('updated', categoryData)
-         
         }
     }
   }
