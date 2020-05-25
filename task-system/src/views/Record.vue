@@ -5,7 +5,7 @@
   </div>
   <Loader v-if="loading" /> 
   <p class="center" v-else-if="!categories.length">Категорий пока нет. <router-link to="/categories">Добавить новую категорию</router-link></p> 
-  <form v-else class="form">
+  <form v-else class="form" @submit.prevent="handlerSubmit">
     <div class="input-field" >
       <select ref="select" v-model="category">
         <option 
@@ -21,9 +21,12 @@
           id="name"
           type="text"
           v-model="name"
+          :class="{invalid: $v.name.$dirty && !$v.name.required}"
       >
       <label for="name">Название</label>
-      <span class="helper-text invalid">Введите название</span>
+      <span 
+        class="helper-text invalid"
+        v-if="$v.name.$dirty && !$v.name.required">Введите название</span>
     </div>
 
     <div class="input-field">
@@ -31,55 +34,72 @@
           id="description"
           type="text"
           v-model="description"
+          :class="{invalid: $v.description.$dirty && !$v.description.required}"
       >
       <label for="description">Описание</label>
       <span
-            class="helper-text invalid">Введите описание</span>
+            class="helper-text invalid"
+             v-if="$v.description.$dirty && !$v.description.required">Введите описание</span>
     </div>
     <div class="input-field">
       <input
           id="comment"
           type="text"
           v-model="comment"
+          :class="{invalid: $v.comment.$dirty && !$v.comment.required}"
       >
       <label for="comment">Комментарий</label>
-      <span class="helper-text invalid">Введите комментарий</span>
+      <span 
+        class="helper-text invalid"
+         v-if="$v.comment.$dirty && !$v.comment.required">Введите комментарий</span>
     </div>
     <div class="input-field">
       <input
           id="player"
           type="text"
           v-model="player"
+          :class="{invalid: $v.player.$dirty && !$v.player.required}"
       >
       <label for="player">Участник</label>
-      <span class="helper-text invalid">Введите участника</span>
+      <span 
+        class="helper-text invalid"
+         v-if="$v.player.$dirty && !$v.player.required">Введите участника</span>
     </div>
     <div class="input-field">
       <input
           id="date"
           type="text"
           v-model="date"
+          :class="{invalid: $v.date.$dirty && !$v.date.required}"
       >
       <label for="date">Срок</label>
-      <span class="helper-text invalid">Введите срок</span>
+      <span 
+        class="helper-text invalid"
+         v-if="$v.date.$dirty && !$v.date.required">Введите срок</span>
     </div>
     <div class="input-field">
       <input
           id="investments"
           type="number"
           v-model="investments"
+          :class="{invalid: $v.investments.$dirty && !$v.investments.required}"
       >
       <label for="investments">Вложения</label>
-      <span class="helper-text invalid">Введите вложения</span>
+      <span 
+          class="helper-text invalid"  
+          v-if="$v.investments.$dirty && !$v.investments.required">Введите вложения</span>
     </div>
     <div class="input-field">
       <input
           id="sum"
           type="number"
           v-model="sum"
+          :class="{invalid: $v.sum.$dirty && !$v.sum.required}"
       >
       <label for="sum">Сумма</label>
-      <span class="helper-text invalid">Введите сумму</span>
+      <span 
+        class="helper-text invalid"  
+        v-if="$v.sum.$dirty && !$v.sum.required">Введите сумму</span>
     </div>
 
     <button class="btn waves-effect waves-light" type="submit">
@@ -108,6 +128,15 @@
       investments: '',
       sum: ''
     }),
+    validations: {
+      name: {required},
+      description: {required},
+      comment: {required},
+      player: {required},
+      date: {required},
+      investments: {required},
+      sum: {required}
+    },
     async mounted() {
       this.categories = await this.$store.dispatch('fetchCategories')
       this.loading = false
@@ -124,6 +153,26 @@
         this.select.destroy()
       }
     },
+    methods: {
+       handlerSubmit() {
+            if(this.$v.$invalid) {
+              this.$v.$touch()
+              return
+            }
+            const categoryData = {
+                name: this.name,
+                description: this.description,
+                comment: this.comment,
+                player: this.player,
+                date: this.date,
+                investments: this.investments,
+                sum: this.sum
+            }
+            
+           
+            
+      }
      
   }
+    }
 </script> 
