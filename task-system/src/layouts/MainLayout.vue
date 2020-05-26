@@ -15,8 +15,9 @@
   </div>
 </template> 
 <script>
-  import NavBar from './../components/app/NavBar.vue';
+  import NavBar from './../components/app/NavBar.vue'
   import SideBar from './../components/app/SideBar.vue'
+  import messages from './../utils/messages.js'
   export default {
     name: 'main-layout',
     data: () => ({
@@ -29,6 +30,16 @@
     },
     components: {
         NavBar, SideBar 
+    },
+    computed: {
+      error(){
+        return this.$store.getters.error
+      }
+    },
+    watch: {
+      error(fberror){
+        this.$error(messages[fberror.code] || 'Что-то пошло не так')
+      }
     }
   }
 </script>  

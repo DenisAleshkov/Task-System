@@ -176,8 +176,17 @@
                 sum: this.sum,
                 date: new Date().toJSON()
               }
+            
+            
+             const countTasks =  this.info.countTasks++;
+             
+          
               await this.$store.dispatch('createRecord', recordData)
-              console.log(this.info.total)
+
+              await this.$store.dispatch('updateInfo',)
+              this.$message('Запись успешно создана',{countTasks})
+              this.$v.$reset()
+             
             }catch(e){}
             
            
