@@ -113,6 +113,7 @@
 
 <script>
   import {required} from 'vuelidate/lib/validators'
+  import {mapGetters} from 'vuex'
   export default {
     name: 'record',
     data: () => ({
@@ -145,6 +146,7 @@
       }
       setTimeout(()=>{
         this.select = M.FormSelect.init(this.$refs.select)
+        M.updateTextFields()
       }, 0)
       
     },
@@ -153,21 +155,30 @@
         this.select.destroy()
       }
     },
+    computed: {
+      ...mapGetters(['info'])
+    },
     methods: {
-       handlerSubmit() {
+       async handlerSubmit() {
             if(this.$v.$invalid) {
               this.$v.$touch()
               return
             }
-            const categoryData = {
+            try{
+              const recordData = {
+                categoryId: this.category,
                 name: this.name,
                 description: this.description,
                 comment: this.comment,
                 player: this.player,
                 date: this.date,
                 investments: this.investments,
-                sum: this.sum
-            }
+                sum: this.sum,
+                date: new Date().toJSON()
+              }
+              await this.$store.dispatch('createRecord', recordData)
+              console.log(this.info.total)
+            }catch(e){}
             
            
             
