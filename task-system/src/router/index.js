@@ -63,6 +63,12 @@ const routes = [
     meta: { layout: 'main', auth: true },
     component: () => import('../views/Total.vue')
   },
+  {
+    path: '/tasks',
+    name: 'tasks',
+    meta: { layout: 'main', auth: true },
+    component: () => import('../views/Tasks.vue')
+  }
 
 ]
 

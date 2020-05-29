@@ -11,11 +11,11 @@ export default {
 				throw e
 			}
 		},
-		async fetchRecord({dispatch, commit}) {
+		async fetchRecords({dispatch, commit}, id) {
 			try{
 				const uid = await dispatch('getUid')
 				const records = (await firebase.database().ref(`/users/${uid}/categories`).once('value')).val() || {}
-				return 
+				return Object.keys(records).map(key => ({...records[key], id:key }))
 			}catch(e){}
 		}
 	}

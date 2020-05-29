@@ -15,8 +15,8 @@
   </div>
 </template> 
 <script>
-  import NavBar from './../components/app/NavBar.vue'
-  import SideBar from './../components/app/SideBar.vue'
+  import NavBar from '@/components/app/NavBar.vue'
+  import SideBar from '@/components/app/SideBar.vue'
   import messages from './../utils/messages.js'
   export default {
     name: 'main-layout',
