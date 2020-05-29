@@ -1,7 +1,11 @@
 <template>  
 <form class="card auth-card" @submit.prevent="submitHandler">
   <div class="card-content">
-    <span class="card-title">Вход в Task System</span>
+    <span class="card-title">Вход в Task System 
+      <router-link to="/">
+        <i class="small material-icons card-title-icon">clear</i>
+      </router-link>
+    </span>
     <Loader v-if="loading" />
     <div class="input-field">
       <input
@@ -106,6 +110,5 @@
 
   }
 </script>
-<style lang="sass">
-
+<style lang="sass" scoped>
 </style>

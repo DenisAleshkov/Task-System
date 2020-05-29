@@ -24,4 +24,15 @@
 <style lang="sass">
 @import '~materialize-css/dist/css/materialize.min.css';
 @import 'assets/index.css';
+.card-title
+  display: flex!important
+  justify-content: space-between
+  &-icon
+    color: #212121
+    transition: all .5s ease
+    &:hover
+      cursor: pointer
+      background-color: #e1f5fe
+      color: #039be5
+      border-radius: 15px
 </style>

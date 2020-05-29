@@ -1,7 +1,11 @@
 <template>
 	<form class="card auth-card" @submit.prevent="submitHandler">
   <div class="card-content">
-    <span class="card-title">Зарегистрировать аккаунт</span>
+    <span class="card-title">Зарегистрировать аккаунт
+      <router-link to="/">
+        <i class="small material-icons card-title-icon">clear</i>
+      </router-link>
+    </span>
     <Loader v-if="loading" />
     <div class="input-field">
       <input
