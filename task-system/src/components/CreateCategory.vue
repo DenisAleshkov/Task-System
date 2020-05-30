@@ -5,6 +5,16 @@
               <h4>Создать</h4>
             </div>
             <form @submit.prevent="submitHandler">
+              <div class="input-field" >
+                <select ref="select" v-model="current">
+                  <option
+                  v-for="c in categories" 
+                  :key="c.id"
+                  :value="c.id"
+                  >{{c.title}}</option>
+                </select>
+                <label>Выберите категорию</label>
+              </div>
               <div class="input-field">
                 <input 
                 	id="name" 
@@ -43,33 +53,61 @@
 <script>
 	import { required } from 'vuelidate/lib/validators'
 	export default {
+    props: {
+      categories: {
+        type: Array,
+        required: true
+      }
+    },
 		data: () => ({
 			title: '',
-			description: ''
+			description: '',
+      select: null,
+      category: null,
+      current: null
 		}),
 		validations: {
 			title: {required},
 			description: {required}
 		},
+    watch: {
+      current(catId) {
+        const { id } = this.categories.find(c => c.id === catId)
+        this.id = id
+      }
+    },
+    created() {
+      const {id} = this.categories[0]
+      this.current = id
+    },
+    mounted() {
+        this.select = M.FormSelect.init(this.$refs.select)
+         M.updateTextFields()
+    },
+    destroyed() {
+      if(this.select && this.select.destroy) {
+        this.select.destroy()
+      }
+    },
 		methods: {
 			async submitHandler() {
 				if(this.$v.$invalid){
 					this.$v.$touch()
 					return
 				}
-				try{
-				const category = await this.$store.dispatch('createCategory', {
-					title: this.title,
-					description: this.description
-					})
-				this.title = ''
-				this.description = ''
-				this.$v.$reset()
-				this.$message('Категория создана')
-				this.$emit('created', category)
-				}catch(e) {}
+        try{
+          const categoryData = {
+          id: this.current,
+          title: this.title,
+          description: this.description
+        }
+          await this.$store.dispatch('createChildCategory', categoryData)
+          this.title = ''
+          this.description = ''
+          this.$v.$reset()
+          this.$message('Категория создана')
+        }catch(e){}	
 			}
 		}
-
 	}
 </script>

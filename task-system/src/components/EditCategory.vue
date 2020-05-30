@@ -7,11 +7,11 @@
 
             <form @submit.prevent="submitHandler">
               <div class="input-field">
-                <select ref="select" v-model="current">
+                <<!-- select ref="select" v-model="current">
                   <option v-for="c of categories" :key="c.id" :value="c.id">
                     {{c.title}}
                   </option>
-                </select>
+                </select> -->
                 <label>Выберите категорию</label>
               </div>
 

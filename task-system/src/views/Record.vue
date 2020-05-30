@@ -3,7 +3,7 @@
   <div class="page-title">
     <h3>Новая запись</h3>
   </div>
-  <Loader v-if="loading" /> 
+  <CircleLoader v-if="loading" /> 
   <p class="center" v-else-if="!categories.length">Категорий пока нет. <router-link to="/categories">Добавить новую категорию</router-link></p> 
   <form v-else class="form" @submit.prevent="handlerSubmit">
     <div class="input-field" >

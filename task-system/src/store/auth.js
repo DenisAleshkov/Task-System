@@ -14,13 +14,21 @@ export default {
 			await firebase.auth().signOut()
 			commit('clearInfo')
 		},
-		async register({ dispatch, commit }, { email, password, name, countTasks }){
+		async register({ dispatch, commit }, { email, password, name, countTasks, design, programming, title,task  }){
 			try {
 				await firebase.auth().createUserWithEmailAndPassword(email, password)
 				const uid = await dispatch('getUid')
 				await firebase.database().ref(`/users/${uid}/info`).set({
 					name,
 					countTasks: 0
+				})
+				await firebase.database().ref(`/users/${uid}/categories`).set({
+					design:{
+						title: 'Дизайн'
+					} ,
+					programming:{
+						title: 'Программирование'
+					} 
 				})
 			}
 			catch(e) {

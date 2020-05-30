@@ -4,16 +4,10 @@
       <h3>Категории</h3>
     </div>
     <section>
-      <Loader v-if="loading" />
-      <div v-else class="row">
-        <CreateCategory @created="addNewCategory"/>
-        <EditCategory 
-          v-if="categories.length"
-          :categories="categories"
-          :key="categories.length + updateCount"
-          @updated="updateCategories"
-        />
-        <p v-else class="center">Катеогрия пока нет</p>
+      <CircleLoader v-if="loading" />
+      <div class="row" v-else>
+        <CreateCategory :categories="categories"/>
+        <!-- <EditCategory /> -->
       </div>
     </section>
   </div>
@@ -29,23 +23,12 @@
     },
     data: () => ({
       categories: [],
-      loading: true,
-      updateCount: 0
+      loading: true
     }),
-    async mounted(){
-      this.categories = await this.$store.dispatch('fetchCategories')
-      this.loading = false
+    async mounted() {
+        this.categories = await this.$store.dispatch('fetchMainCategories')
+        console.log("this.categories", this.categories);
+        this.loading = false
     },
-    methods: {
-      addNewCategory(category) {
-        this.categories.push(category)
-      },
-      updateCategories(category) {
-        const idx = this.categories.findIndex(c => c.id === category.id)
-        this.categories[idx].title = category.title
-        this.category[idx].description = category.description
-        this.updateCount++
-      }
-    }
   }
 </script>
