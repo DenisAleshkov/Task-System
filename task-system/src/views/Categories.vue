@@ -4,7 +4,7 @@
       <h3>Категории</h3>
     </div>
     <section>
-      <CircleLoader v-if="loading" />
+      <Loader v-if="loading" />
       <div class="row" v-else>
         <CreateCategory :categories="categories"/>
         <!-- <EditCategory /> -->
@@ -27,8 +27,7 @@
     }),
     async mounted() {
         this.categories = await this.$store.dispatch('fetchMainCategories')
-        console.log("this.categories", this.categories);
         this.loading = false
-    },
+    }
   }
 </script>

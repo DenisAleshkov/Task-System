@@ -3,15 +3,41 @@
   <div class="page-title">
     <h3>Новая запись</h3>
   </div>
-  <CircleLoader v-if="loading" /> 
-  <p class="center" v-else-if="!categories.length">Категорий пока нет. <router-link to="/categories">Добавить новую категорию</router-link></p> 
-  <form v-else class="form" @submit.prevent="handlerSubmit">
-    <div class="input-field" >
+ 
+  <Loader v-if="loading" /> 
+  <form class="form" @submit.prevent="handlerSubmit" v-else>
+    <p>
+      <label>
+        <input
+            class="with-gap"
+            name="type"
+            type="radio"
+            value="design"
+            v-model="type"
+        />
+        <span>Дизайн</span>
+      </label>
+    </p>
+
+    <p>
+      <label>
+        <input
+            class="with-gap"
+            name="type"
+            type="radio"
+            value="programming"
+            v-model="type"
+        />
+        <span>Программирование</span>
+      </label>
+    </p>
+    <div class="input-field">
       <select ref="select" v-model="category">
         <option 
-          v-for="c in categories"
-          :key=c.id
-          :value=c.id
+        v-for="c in categories" 
+        :key="c.id"  
+        :value="c.id"
+     
         >{{c.title}}</option>
       </select>
       <label>Выберите категорию</label>
@@ -119,6 +145,9 @@
     data: () => ({
       loading: true,
       categories: [],
+      designCategories: [],
+      programmingCategories: [],
+      type: 'design',
       category: null,
       select: null,
       name: '',
@@ -127,7 +156,8 @@
       player: '',
       date: '',
       investments: '',
-      sum: ''
+      sum: '',
+      refreshToken: 1
     }),
     validations: {
       name: {required},
@@ -138,12 +168,15 @@
       investments: {required},
       sum: {required}
     },
+
     async mounted() {
-      this.categories = await this.$store.dispatch('fetchCategories')
+      this.designCategories = await this.$store.dispatch('fetchDesignCategories')
+      this.programmingCategories = await this.$store.dispatch('fetchProgrammignCategories')
       this.loading = false
-      if(this.categories.length) {
+      if(this.type == 'design' && this.designCategories.length) {
+        this.categories = this.designCategories
         this.category = this.categories[0].id
-      }
+      }else{this.categories =  this.programmingCategories}
       setTimeout(()=>{
         this.select = M.FormSelect.init(this.$refs.select)
         M.updateTextFields()
@@ -156,7 +189,9 @@
       }
     },
     computed: {
-      ...mapGetters(['info'])
+      ...mapGetters(['info']),
+    },
+    watch: {
     },
     methods: {
        async handlerSubmit() {
@@ -176,17 +211,23 @@
                 sum: this.sum,
                 date: new Date().toJSON()
               }
-            
-            
-             const countTasks =  this.info.countTasks++;
-             
-          
-              await this.$store.dispatch('createRecord', recordData)
+              if(this.type === 'design'){
+               
+                await this.$store.dispatch('createDesignRecord', recordData)
+                
+                this.$message('Запись успешно создана',{countTasks})
+                this.$v.$reset()
+              }
+              if(this.type === 'programming'){
 
+                await this.$store.dispatch('createProgrammingRecord', recordData)
+               
+                this.$message('Запись успешно создана',{countTasks})
+                this.$v.$reset()
+              } 
+              const countTasks =  this.info.countTasks++;
               await this.$store.dispatch('updateInfo',)
-              this.$message('Запись успешно создана',{countTasks})
-              this.$v.$reset()
-             
+
             }catch(e){}
             
            

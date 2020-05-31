@@ -9,6 +9,20 @@ export default {
 				return Object.keys(categories).map(key => ({ ...categories[key],  id: key}) )
 			}catch(e) {}
 		},
+		async fetchDesignCategories({commit, dispatch}){
+			try{
+				const uid = await dispatch('getUid')
+				const categories = (await firebase.database().ref(`/users/${uid}/categories/design/categories`).once('value')).val() || {}
+				return Object.keys(categories).map(key => ({ ...categories[key],  id: key}) )
+			}catch(e) {}
+		},
+		async fetchProgrammignCategories({commit, dispatch}){
+			try{
+				const uid = await dispatch('getUid')
+				const categories = (await firebase.database().ref(`/users/${uid}/categories/programming/categories`).once('value')).val() || {}
+				return Object.keys(categories).map(key => ({ ...categories[key],  id: key}) )
+			}catch(e) {}
+		},
 		async createChildCategory({commit, dispatch}, category) {
 			try{
 				const uid = await dispatch('getUid')
