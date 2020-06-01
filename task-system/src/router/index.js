@@ -33,36 +33,36 @@ const routes = [
   //   meta: { layout: 'main', auth: true },
   //   component: () => import('../views/Detail.vue')
   // },
-  // {
-  //   path: '/history',
-  //   name: 'history',
-  //   meta: { layout: 'main', auth: true },
-  //   component: () => import('../views/History.vue')
-  // },
   {
     path: '/record',
     name: 'record',
     meta: { layout: 'main', auth: true },
     component: () => import('../views/Record.vue')
   },
-  // {
-  //   path: '/planning',
-  //   name: 'planning',
-  //   meta: { layout: 'main', auth: true },
-  //   component: () => import('../views/Planning.vue')
-  // },
+  {
+    path: '/design-categories',
+    name: 'design-categories',
+    meta: { layout: 'main', auth: true },
+    component: () => import('../views/DesignCategories.vue')
+  },
+   {
+    path: '/programming-categories',
+    name: 'programming-categories',
+    meta: { layout: 'main', auth: true },
+    component: () => import('../views/ProgrammingCategories.vue')
+  },
   {
     path: '/profile',
     name: 'profile',
     meta: { layout: 'main', auth: true },
     component: () => import('../views/Profile.vue')
   },
-  // {
-  //   path: '/total',
-  //   name: 'total',
-  //   meta: { layout: 'main', auth: true },
-  //   component: () => import('../views/Total.vue')
-  // },
+  {
+    path: '/user',
+    name: 'user',
+    meta: { layout: 'main', auth: true },
+    component: () => import('../views/User.vue')
+  },
   {
     path: '/tasks',
     name: 'tasks',

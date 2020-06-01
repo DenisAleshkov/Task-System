@@ -17,7 +17,7 @@
     props: ['value'],
     data: () => ({
       links: [
-        // {title: 'Статистика', url: '/total', exact: true},
+        {title: 'Пользователь', url: '/user', exact: true},
         // {title: 'История', url: '/history'},
         // {title: 'Планирование', url: '/planning'},
         {title: 'Новая запись', url: '/record'},

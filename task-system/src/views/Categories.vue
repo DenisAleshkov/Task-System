@@ -7,19 +7,16 @@
       <Loader v-if="loading" />
       <div class="row" v-else>
         <CreateCategory :categories="categories"/>
-        <!-- <EditCategory /> -->
       </div>
     </section>
   </div>
 </template>
 <script>
   import CreateCategory from '@/components/CreateCategory'
-  import EditCategory from '@/components/EditCategory'
   export default {
     name: 'categories',
     components: {
-      CreateCategory,
-      EditCategory
+      CreateCategory
     },
     data: () => ({
       categories: [],

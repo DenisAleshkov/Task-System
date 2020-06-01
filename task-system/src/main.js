@@ -6,7 +6,6 @@ import router from './router'
 import store from './store'
 import messagePlugin from './utils/message.plugin.js'
 import Loader from '@/components/app/Loader.vue'
-import CircleLoader from '@/components/app/CircleLoader.vue'
 import './registerServiceWorker'
 import 'materialize-css/dist/js/materialize.min'
 
@@ -19,7 +18,6 @@ Vue.config.productionTip = false
 Vue.use(Vuelidate)
 Vue.use(messagePlugin)
 Vue.component('Loader', Loader)
-Vue.component('CircleLoader', CircleLoader)
 
 const firebaseConfig = {
     apiKey: "AIzaSyDjcMdfnMSEpevEHPM8Vbe9Ux3Yr2RB2Eo",
