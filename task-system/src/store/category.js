@@ -16,7 +16,7 @@ export default {
 				return Object.keys(categories).map(key => ({ ...categories[key],  id: key}) )
 			}catch(e) {}
 		},
-		async fetchProgrammignCategories({commit, dispatch}){
+		async fetchProgrammingCategories({commit, dispatch}){
 			try{
 				const uid = await dispatch('getUid')
 				const categories = (await firebase.database().ref(`/users/${uid}/categories/programming/categories`).once('value')).val() || {}
@@ -33,11 +33,10 @@ export default {
 				throw e
 			}
 		},
-		// async createCategory({commit, dispatch}, {title, description}){
+		// async deleteProgrammingCategories({commit,dispatch},{}){
 		// 	try{
 		// 		const uid = await dispatch('getUid')
-		// 		const category = await firebase.database().ref(`/users/${uid}/categories`).push({title, description})
-		// 		return {title, description, id: category.key}
+		// 		await firebase.database().ref(`/users/${uid}/categories/programming/categories`).FieldValue.remove()
 		// 	}catch(e){
 		// 		commit('setError', e)
 		// 		throw e

@@ -22,7 +22,7 @@
         // {title: 'Планирование', url: '/planning'},
         {title: 'Новая запись', url: '/record'},
         {title: 'Категории', url: '/categories'},
-        // {title: 'Система задач', url: '/tasks'}
+        {title: 'Доска', url: '/tasks'}
       ]
     })
   }

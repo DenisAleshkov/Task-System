@@ -14,11 +14,11 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="(category, idx) of categories" :key="category.id">
+      <tr v-for="(category, idx) of categories" :key="category.id" v-model="current">
         <td>{{idx+1}}</td>
         <td>{{category.title}}</td>
         <td>
-        <button type="button"  class='btn-small btn delete-btn'><i class="delete-icon small material-icons">delete</i></button>
+        <button type="submit"  @click.prevent="deleted" class='btn-small btn delete-btn'><i class="delete-icon small material-icons">delete</i></button>
         </td>
       </tr>
       </tbody>
@@ -30,11 +30,21 @@
 	export default {
 		data: ()=> ({
 			categories: [],
-			loading: true
+			loading: true,
+			current: null
 		}),
 		async mounted() {
 			this.categories = await this.$store.dispatch('fetchProgrammignCategories')
 			this.loading = false
+		},
+		methods: {
+			async deleted() {
+				try{
+          			await this.$store.dispatch('deleteProgrammingCategories')
+          			this.$message('Категория удалена')
+        		}catch(e){}	
+				
+			}
 		}
 	}
 </script>

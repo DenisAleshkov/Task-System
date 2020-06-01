@@ -35,7 +35,6 @@
 		async mounted() {
 			this.categories = await this.$store.dispatch('fetchDesignCategories')
 			this.loading = false
-			console.log("this.categories", this.categories);
 		}
 	}
 </script>
