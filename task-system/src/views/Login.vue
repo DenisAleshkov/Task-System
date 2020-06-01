@@ -100,7 +100,7 @@
           this.loading = true
           await this.$store.dispatch('login', formData)
           this.loading = false
-          this.$router.push('/total')
+          this.$router.push('/categories')
         }
         catch(e){
           this.loading = false
