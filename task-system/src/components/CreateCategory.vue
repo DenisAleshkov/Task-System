@@ -5,7 +5,7 @@
               <h4>Создать</h4>
             </div>
             <form @submit.prevent="submitHandler">
-              <div class="input-field" >
+              <div class="input-field">
                 <select ref="select" v-model="current">
                   <option
                   v-for="c in categories" 
@@ -63,7 +63,6 @@
 			title: '',
 			description: '',
       select: null,
-      category: null,
       current: null
 		}),
 		validations: {
