@@ -27,12 +27,6 @@ const routes = [
     meta: { layout: 'main', auth: true },
     component: () => import('../views/Categories.vue')
   },
-  // {
-  //   path: '/detail',
-  //   name: 'detail',
-  //   meta: { layout: 'main', auth: true },
-  //   component: () => import('../views/Detail.vue')
-  // },
   {
     path: '/record',
     name: 'record',
@@ -81,6 +75,12 @@ const routes = [
     meta: { layout: 'main', auth: true },
     component: () => import('../views/addProgrammingRecord.vue')
   },
+  {
+    path: '/design-board/:id',
+    name: 'design-board',
+    meta: { layout: 'main', auth: true },
+    component: () => import('../views/DesignBoard.vue')
+  }
 
 ]
 

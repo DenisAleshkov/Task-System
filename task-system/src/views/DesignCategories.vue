@@ -19,7 +19,15 @@
         <td>{{idx+1}}</td>
         <td>{{category.title}}</td>
         <td>
-        <button type="button"  class='btn-small btn delete-btn'><i class="delete-icon small material-icons">delete</i></button>
+        <button 
+          type="button"  
+          class='btn-small btn delete-btn'>
+            <i class="delete-icon small material-icons">delete</i>
+          </button>
+        <button 
+          type="button"
+          @click="$router.push('/design-board/' + category.id)"
+          >  <i class="tiny material-icons">check_circle</i>Открыть</button>
         </td>
       </tr>
       </tbody>
