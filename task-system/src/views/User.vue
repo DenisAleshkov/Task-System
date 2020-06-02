@@ -7,16 +7,8 @@
 </div>
 </template>
 <script>
- 
   export default {
-    name: 'total',
-    data: () => ({
-
-    }),
-    components: {
-      
-    },
-   
+    name: 'user',
   }
 </script>
 <style lang="sass" scoped>

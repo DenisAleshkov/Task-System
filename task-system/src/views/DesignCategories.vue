@@ -5,6 +5,7 @@
   </div>
 
 	<Loader v-if="loading" />
+  <p class="center" v-else-if="!categories.length">Создайте категории</p>
   <section v-else>
     <table>
       <thead>

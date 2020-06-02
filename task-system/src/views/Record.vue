@@ -1,41 +1,21 @@
 <template>
-	<div>
-  <div class="page-title">
-    <h3>Новая запись</h3>
+ <div>
+  <div class="row button-row">
+      <router-link to='/create-design-record'  class="waves-effect waves-light btn-large button-redirect">Дизайн</router-link>
+      <router-link to='/create-programming-record' class="waves-effect waves-light btn-large button-redirect">Программирование</router-link>
   </div>
-  <Loader v-if="loading" /> 
-  <addRecord
-  :designCategories="designCategories"
-  :programmingCategories="programmingCategories"
-  :refresh="updateCount"
-   v-else/>
 </div>
-
 </template>
-
 <script>
-  import addRecord from '@/components/addRecord'
   export default {
     name: 'record',
-    components: {
-      addRecord
-    },
-    data: () => ({
-      designCategories: [],
-      programmingCategories: [],
-      loading: true,
-      updateCount: 0
-    }),
-    async mounted() {
-      this.designCategories = await this.$store.dispatch('fetchDesignCategories')
-
-      this.programmingCategories = await this.$store.dispatch('fetchProgrammignCategories')
-
-      this.loading = false
-      this.updateCount++
-    },
-    methods: {
-
-    }
   }
-</script> 
+</script>
+<style lang="sass" scoped>
+.button-row
+  display: flex
+.button-redirect
+  width: 100%
+.button-redirect:nth-child(1)
+  margin-right: 30px
+</style>

@@ -68,7 +68,19 @@ const routes = [
     name: 'tasks',
     meta: { layout: 'main', auth: true },
     component: () => import('../views/Tasks.vue')
-  }
+  },
+  {
+    path: '/create-design-record',
+    name: 'create-design-record',
+    meta: { layout: 'main', auth: true },
+    component: () => import('../views/addDesignRecord.vue')
+  },
+  {
+    path: '/create-programming-record',
+    name: 'create-programming-record',
+    meta: { layout: 'main', auth: true },
+    component: () => import('../views/addProgrammingRecord.vue')
+  },
 
 ]
 

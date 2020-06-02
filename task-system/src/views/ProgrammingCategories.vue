@@ -5,6 +5,7 @@
   </div>
 
 	<Loader v-if="loading" />
+  <p class="center" v-else-if="!categories.length">Создайте категории</p>
   <section v-else>
     <table>
       <thead>
@@ -18,7 +19,7 @@
         <td>{{idx+1}}</td>
         <td>{{category.title}}</td>
         <td>
-        <button type="submit"  @click.prevent="deleted" class='btn-small btn delete-btn'><i class="delete-icon small material-icons">delete</i></button>
+        <button type="button" class='btn-small btn delete-btn'><i class="delete-icon small material-icons">delete</i></button>
         </td>
       </tr>
       </tbody>
@@ -34,17 +35,10 @@
 			current: null
 		}),
 		async mounted() {
-			this.categories = await this.$store.dispatch('fetchProgrammignCategories')
+			this.categories = await this.$store.dispatch('fetchProgrammingCategories')
 			this.loading = false
 		},
 		methods: {
-			async deleted() {
-				try{
-          			await this.$store.dispatch('deleteProgrammingCategories')
-          			this.$message('Категория удалена')
-        		}catch(e){}	
-				
-			}
 		}
 	}
 </script>
