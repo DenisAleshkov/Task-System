@@ -173,12 +173,8 @@
                 await this.$store.dispatch('createDesignRecord', recordData)
                 this.$message('Запись успешно создана')
                 this.$v.$reset()
-            }catch(e){}
-            
-           
-            
+            }catch(e){} 
       }
-     
   }
 }
 </script>

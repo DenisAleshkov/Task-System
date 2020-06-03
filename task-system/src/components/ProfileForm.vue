@@ -49,6 +49,7 @@
         }
         try{
           await this.updateInfo({name: this.name})
+          this.$message('Имя обновлено')
         }catch(e){}
     }
   }

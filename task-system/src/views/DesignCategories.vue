@@ -15,19 +15,21 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="(category, idx) of categories" :key="category.id">
+      <tr v-for="(category, idx) of categories" :key="category.id" v-model="current" >
         <td>{{idx+1}}</td>
         <td>{{category.title}}</td>
         <td>
         <button 
-          type="button"  
+          type="button"
+          @click="remove"
           class='btn-small btn delete-btn'>
-            <i class="delete-icon small material-icons">delete</i>
+          Удалить
           </button>
         <button 
           type="button"
           @click="$router.push('/design-board/' + category.id)"
-          >  <i class="tiny material-icons">check_circle</i>Открыть</button>
+          class="open-btn" 
+          >Открыть</button>
         </td>
       </tr>
       </tbody>
@@ -39,29 +41,76 @@
 	export default {
 		data: ()=> ({
 			categories: [],
-			loading: true
+			loading: true,
+      current: null
 		}),
 		async mounted() {
 			this.categories = await this.$store.dispatch('fetchDesignCategories')
 			this.loading = false
-		}
+		},
+    watch: {
+      current(catId) {
+         const { id } = this.categories.find(c => c.id === catId)
+         this.id = id
+      }
+    },
+    methods: {
+      remove() {
+        console.log(this.current)
+      }
+    }
 	}
 </script>
 <style lang="sass" scoped>
 .delete-btn
-  width: 15px
-  background-color: #2c343c
-  color: #fff
-  height: 30px
-  position: relative
-.delete-icon
-  position: absolute
-  top: 0
-  right: 0
-  bottob: 0
-  left: 0
-  font-size: 24px
-  transition: all .5s ease
-.delete-icon:hover
-  color: #E43C3C
+  font-weight: 900
+  border: none
+  text-decoration: none
+  outline: none
+  display: inline-block
+  width: 140px
+  height: 45px
+  line-height: 45px
+  border-radius: 45px
+  margin: 10px 20px
+  font-size: 11px
+  text-transform: uppercase
+  text-align: center
+  letter-spacing: 3px
+  color: #524f4e
+  background: white
+  box-shadow: 0 8px 15px rgba(0,0,0,.1)
+  transition: .3s
+.delete-btn:hover
+  cursor: pointer
+  background: #F43939
+  box-shadow: 0 15px 20px rgba(240, 52, 52, 0.4)
+  color: white
+  transform: translateY(-7px)
+.open-btn
+  font-weight: 900
+  border: none
+  text-decoration: none
+  outline: none
+  display: inline-block
+  width: 140px
+  height: 45px
+  line-height: 45px
+  border-radius: 45px
+  margin: 10px 20px
+  font-size: 11px
+  text-transform: uppercase
+  text-align: center
+  letter-spacing: 3px
+  color: #524f4e
+  background: white
+  box-shadow: 0 8px 15px rgba(0,0,0,.1)
+  transition: .3s
+.open-btn:hover
+  cursor: pointer
+  background: #2EE59D
+  box-shadow: 0 15px 20px rgba(46,229,157,.4)
+  color: white
+  transform: translateY(-7px)
+
 </style>

@@ -11,6 +11,15 @@ export default {
 				throw e
 			}
 		},
+		async createProcessRecord({dispatch, commit}, record) {
+			try{
+				const uid = await dispatch('getUid')
+				return await firebase.database().ref(`/users/${uid}/categories/design/categories/${record.id}/record/process`).push(record)
+			}catch(e){
+				commit('setError', e)
+				throw e
+			}
+		},
 		async createProgrammingRecord({dispatch, commit}, record) {
 			try{
 				const uid = await dispatch('getUid')

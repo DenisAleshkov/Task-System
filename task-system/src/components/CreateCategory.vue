@@ -72,6 +72,7 @@
     watch: {
       current(catId) {
         const { id } = this.categories.find(c => c.id === catId)
+        console.log("id", id);
         this.id = id
       }
     },
