@@ -1,7 +1,9 @@
 <template>
-  <div class="row board">
+<div>
+<Loader v-if="loading" /> 
+  <div class="row board" v-else>
     <div class="col-3 board-item">
-      <h3>К выполнению</h3>
+      <h3><i class="small material-icons">build</i>В процессе</h3>
       <draggable
         class="dragArea list-group"
         :list="startRecord"
@@ -15,7 +17,6 @@
           	<div class="card blue-grey darken-1">
         		<div class="card-content white-text">
           			<span class="card-title">{{element.name}}</span>
-          			<p>{{element.description}}</p>
         		</div>
       		</div>
         </div>
@@ -23,7 +24,7 @@
     </div>
 
     <div class="col-3 board-item">
-      <h3>В процессе</h3>
+     <h3><i class="small material-icons">build</i>В процессе</h3>
       <draggable class="dragArea list-group" 
       	:list="processRecord" 
       	group="people"
@@ -37,14 +38,13 @@
         <div class="card blue-grey darken-1">
         		<div class="card-content white-text">
           			<span class="card-title">{{element.name}}</span>
-          			<p>{{element.description}}</p>
         		</div>
       		</div>
       		</div>
       </draggable>
     </div>
     <div class="col-3 board-item">
-      <h3>Готово</h3>
+      <h3><i class="small material-icons">done</i>Готово</h3>
       <draggable 
       	class="dragArea list-group" 
       	:list="doneRecord" 
@@ -57,20 +57,20 @@
         <div class="card blue-grey darken-1">
         		<div class="card-content white-text">
           			<span class="card-title">{{element.name}}</span>
-          			<p>{{element.description}}</p>
         		</div>
         		</div>
       		</div>
       </draggable>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
-import draggable from "vuedraggable";
+import draggable from "vuedraggable"
 let idGlobal = 8;
 export default {
-  name: "clone-on-control",
+  name: "design-board",
   order: 4,
   components: {
     draggable
@@ -80,7 +80,8 @@ export default {
       startRecord: [],
       processRecord: [],
       doneRecord: [],
-      controlOnStart: true
+      controlOnStart: true,
+      loading: true
     };
   },
   async mounted() {
@@ -133,11 +134,18 @@ export default {
 </script>
 <style lang="sass" scoped>
 .board
-	display: flex
-	min-height: 50px
-	&-item:not(:last-child)
-		margin-right: 10px
+  display: flex
+  justify-content: space-between
+  min-height: 50px
+  &-item:not(:last-child)
+    margin-right: 10px
+.list-group
+  min-height: 200px
 .list-group-item
-	height: 50px
-	margin-bottom: 100px
+  height: 50px
+  margin-bottom: 100px
+.card
+  display: flex
+  justify-content: center
+  border-radius: 20px
 </style>
