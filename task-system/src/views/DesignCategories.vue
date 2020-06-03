@@ -6,7 +6,7 @@
 
 	<Loader v-if="loading" />
   <p class="center" v-else-if="!categories.length">Создайте категории</p>
-  <section v-else>
+  <section v-else >
     <table>
       <thead>
       <tr>
@@ -15,13 +15,13 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="(category, idx) of categories" :key="category.id" v-model="current" >
+      <tr v-for="(category, idx) of categories" :key="category.id">
         <td>{{idx+1}}</td>
         <td>{{category.title}}</td>
         <td>
         <button 
           type="button"
-          @click="remove"
+          @click="remove(idx)"
           class='btn-small btn delete-btn'>
           Удалить
           </button>
@@ -42,21 +42,24 @@
 		data: ()=> ({
 			categories: [],
 			loading: true,
-      current: null
+      current: null,
+      refresh: 0
 		}),
 		async mounted() {
 			this.categories = await this.$store.dispatch('fetchDesignCategories')
 			this.loading = false
 		},
-    watch: {
-      current(catId) {
-         const { id } = this.categories.find(c => c.id === catId)
-         this.id = id
-      }
-    },
     methods: {
-      remove() {
-        console.log(this.current)
+      async remove(idx) {
+        try{
+            this.loading = true
+            this.current = this.categories[idx]
+            await this.$store.dispatch('deleteDesignCategories', this.current.id)
+            this.categories = await this.$store.dispatch('fetchDesignCategories')
+            this.loading = false
+            this.$message('Успешно удалено')
+        }catch(e){}
+       
       }
     }
 	}
@@ -112,5 +115,4 @@
   box-shadow: 0 15px 20px rgba(46,229,157,.4)
   color: white
   transform: translateY(-7px)
-
 </style>

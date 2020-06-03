@@ -33,15 +33,24 @@ export default {
 				throw e
 			}
 		},
-		// async deleteProgrammingCategories({commit,dispatch},{}){
-		// 	try{
-		// 		const uid = await dispatch('getUid')
-		// 		await firebase.database().ref(`/users/${uid}/categories/programming/categories`).FieldValue.remove()
-		// 	}catch(e){
-		// 		commit('setError', e)
-		// 		throw e
-		// 	}
-		// },
+		async deleteDesignCategories({commit,dispatch}, id){
+			try{
+				const uid = await dispatch('getUid')
+				await firebase.database().ref(`/users/${uid}/categories/design/categories`).child(id).remove()
+			}catch(e){
+				commit('setError', e)
+				throw e
+			}
+		},
+		async deleteProgrammingCategories({commit,dispatch}, id){
+			try{
+				const uid = await dispatch('getUid')
+				await firebase.database().ref(`/users/${uid}/categories/programming/categories`).child(id).remove()
+			}catch(e){
+				commit('setError', e)
+				throw e
+			}
+		},
 		async updateCategory({commit, dispatch}, {id, title, description}) {
 			try{
 				const uid = await dispatch('getUid')
