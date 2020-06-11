@@ -69,7 +69,7 @@
 import draggable from "vuedraggable"
 let idGlobal = 8;
 export default {
-  name: "design-board",
+  name: "programming-board",
   components: {
     draggable
   },
@@ -84,7 +84,7 @@ export default {
   },
   async mounted() {
   const id = this.$route.params.id
-	this.startRecord = await this.$store.dispatch('fetchDesignStartRecordsById', id)
+	this.startRecord = await this.$store.dispatch('fetchProgrammingStartRecordsById', id)
   this.processRecord = await this.$store.dispatch('fetchDesignProcessRecordsById', id)
   this.doneRecord = await this.$store.dispatch('fetchDesignDoneRecordsById', id)
 	this.loading = false

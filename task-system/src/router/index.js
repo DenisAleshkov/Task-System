@@ -80,6 +80,12 @@ const routes = [
     name: 'design-board',
     meta: { layout: 'main', auth: true },
     component: () => import('../views/DesignBoard.vue')
+  },
+  {
+    path: '/programming-board/:id',
+    name: 'programming-board',
+    meta: { layout: 'main', auth: true },
+    component: () => import('../views/ProgrammingBoard.vue')
   }
 
 ]

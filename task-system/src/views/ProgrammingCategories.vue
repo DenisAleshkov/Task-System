@@ -27,7 +27,7 @@
           </button>
         <button 
           type="button"
-          @click="$router.push('/design-board/' + category.id)"
+          @click="$router.push('/programming-board/' + category.id)"
           class="open-btn" 
           >Открыть</button>
         </td>
