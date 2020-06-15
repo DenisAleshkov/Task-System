@@ -11,19 +11,28 @@ export default {
 				throw e
 			}
 		},
-		async createProcessRecord({dispatch, commit}, record) {
+		async createDesignStartRecord({dispatch, commit}, record) {
 			try{
 				const uid = await dispatch('getUid')
-				return await firebase.database().ref(`/users/${uid}/categories/design/categories/${record.id}/record/process`).push(record)
+				return await firebase.database().ref(`/users/${uid}/categories/design/categories/${record.categoryId}/record/start/${record.id}`).set(record)
 			}catch(e){
 				commit('setError', e)
 				throw e
 			}
 		},
-		async createDoneRecord({dispatch, commit}, record) {
+		async createDesignProcessRecord({dispatch, commit}, record) {
 			try{
 				const uid = await dispatch('getUid')
-				return await firebase.database().ref(`/users/${uid}/categories/design/categories/${record.id}/record/done`).push(record)
+				return await firebase.database().ref(`/users/${uid}/categories/design/categories/${record.categoryId}/record/process/${record.id}`).set(record)
+			}catch(e){
+				commit('setError', e)
+				throw e
+			}
+		},
+		async createDesignDoneRecord({dispatch, commit}, record) {
+			try{
+				const uid = await dispatch('getUid')
+				return await firebase.database().ref(`/users/${uid}/categories/design/categories/${id}/record/done`).set({})
 			}catch(e){
 				commit('setError', e)
 				throw e
@@ -72,6 +81,25 @@ export default {
 				const records = (await firebase.database().ref(`/users/${uid}/categories/design/categories/${id}/record/done`).once('value')).val() || {}
 				return Object.keys(records).map(key => ({...records[key], id:key }))
 			}catch(e){}
-		}
+		},
+		//delete
+		async deleteStartRecordsWithDrag({commit,dispatch}, record){
+			try{
+				const uid = await dispatch('getUid')
+				await firebase.database().ref(`/users/${uid}/categories/design/categories/${record.categoryId}/record/start/`).child(record.id).remove()
+			}catch(e){
+				commit('setError', e)
+				throw e
+			}
+		},
+		async deleteProcessRecordsWithDrag({commit,dispatch}, record){
+			try{
+				const uid = await dispatch('getUid')
+				await firebase.database().ref(`/users/${uid}/categories/design/categories/${record.categoryId}/record/process/`).child(record.id).remove()
+			}catch(e){
+				commit('setError', e)
+				throw e
+			}
+		},
 	}
 }

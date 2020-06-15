@@ -49,8 +49,7 @@
       	group="people"
       	:clone="clone"
         @change="done"
-        :group="{ name: 'people', pull: pullFunction }"
-         
+        :group="{ name: 'people',  pull: pullFunction }"
       	>
       	<div class="list-group-item" v-for="element in doneRecord" :value="element.id" :key="element.id">
         <div class="card blue-grey darken-1">
@@ -83,30 +82,62 @@ export default {
     };
   },
   async mounted() {
-  const id = this.$route.params.id
-	this.startRecord = await this.$store.dispatch('fetchDesignStartRecordsById', id)
-  this.processRecord = await this.$store.dispatch('fetchDesignProcessRecordsById', id)
-  this.doneRecord = await this.$store.dispatch('fetchDesignDoneRecordsById', id)
-	this.loading = false
+      const id = this.$route.params.id
+	    this.startRecord = await this.$store.dispatch('fetchDesignStartRecordsById', id)
+      this.processRecord = await this.$store.dispatch('fetchDesignProcessRecordsById', id)
+      this.doneRecord = await this.$store.dispatch('fetchDesignDoneRecordsById', id)
+	    this.loading = false
   },
   methods: {
-    clone({ name }) {
-      return { name, id: idGlobal++ };
+    clone({categoryId, comment, date, description, id, investments, name, player, sum}) {
+      return { 
+        name,
+        categoryId,
+        comment,
+        date,
+        description, 
+        id,
+        investments,
+        name,
+        player,
+        sum
+      };
     },
     pullFunction() {
     },
     
-    start() {
-     console.log(this.startRecord)
+    async start(val) {
+     //  // this.loading = true
+     // await this.$store.dispatch('deleteStartRecordsWithDrag', val.removed.element)
+     if(val.removed.element){
+      console.log("val start ");
+     }
+     
+     // const startRecord = { ...this.startRecord}
+     // for(let key in startRecord) {
+     //  await this.$store.dispatch('createDesignStartRecord',  startRecord[key])
+     //  }
+     //   this.loading = false
     },
     done(){
-console.log(this.doneRecord)
-       
+      const doneRecord = { ...this.doneRecord}
+      console.log("doneRecord", doneRecord);
     },
-    proces() {
-      console.log(this.processRecord)
+    async proces(val) {
+      if(val.removed.element){
+      console.log("val process ");
+     }
+      // this.loading = true
+      // await this.$store.dispatch('deleteProcessRecordsWithDrag', val.removed.element)
+      // console.log("val.removed.element", val.removed.element);
+      // const processRecord = { ...this.processRecord}
+      // for(let key in processRecord) {
+      // await this.$store.dispatch('createDesignProcessRecord',  processRecord[key])
+      // }
       
-      // this.$store.dispatch('createProcessRecord', dataProces)
+
+      // // await this.$store.dispatch('createDesignProcessRecord', processRecord)
+      // this.loading = false
     },
     async log(evt) {
      
@@ -147,4 +178,6 @@ console.log(this.doneRecord)
   display: flex
   justify-content: center
   border-radius: 20px
+  &:hover
+    cursor: pointer
 </style>
