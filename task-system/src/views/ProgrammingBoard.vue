@@ -67,7 +67,6 @@
 
 <script>
 import draggable from "vuedraggable"
-let idGlobal = 8;
 export default {
   name: "programming-board",
   components: {
@@ -85,48 +84,77 @@ export default {
   async mounted() {
   const id = this.$route.params.id
 	this.startRecord = await this.$store.dispatch('fetchProgrammingStartRecordsById', id)
-  this.processRecord = await this.$store.dispatch('fetchDesignProcessRecordsById', id)
-  this.doneRecord = await this.$store.dispatch('fetchDesignDoneRecordsById', id)
+  this.processRecord = await this.$store.dispatch('fetchProgrammingProcessRecordsById', id)
+  this.doneRecord = await this.$store.dispatch('fetchProgrammingDoneRecordsById', id)
 	this.loading = false
   },
   methods: {
-    clone({ name }) {
-      return { name, id: idGlobal++ };
+    clone({categoryId, comment, date, description, id, investments, name, player, sum}) {
+      return { 
+        name,
+        categoryId,
+        comment,
+        date,
+        description, 
+        id,
+        investments,
+        name,
+        player,
+        sum
+      };
     },
     pullFunction() {
     },
+     async start({added, removed}) {
+      try{
+      if(added){
+          this.loading = true
+          await this.$store.dispatch('createProgrammingStartRecord', added.element)
+          this.loading = false
+        }
+        if(removed){
+          this.loading = true
+          await this.$store.dispatch('deleteStartRecordsWithDrag', removed.element)
+          this.loading = false
+        }
+      }catch(e){}
     
-    start() {
-     console.log(this.startRecord)
     },
-    done(){
-console.log(this.doneRecord)
-       
-    },
-    proces() {
-      console.log(this.processRecord)
-      
-      // this.$store.dispatch('createProcessRecord', dataProces)
-    },
-    async log(evt) {
+    async done({added, removed}){
+      try{
+        if(added){
+          this.loading = true
+          await this.$store.dispatch('createProgrammingDoneRecord', added.element)
+          this.loading = false
+        }
+        if(removed){
+          this.loading = true
+          await this.$store.dispatch('deleteDoneRecordsWithDrag', removed.element)
+          this.loading = false
+        }
+      }catch(e){}
      
-    	try{
-    			// }
-    			// await this.$store.dispatch('createProcessRecord', recordData)
-    			// this.$message('Готово')
-    		}
-    		// if(this.processDone.length){
-    		// 	const recordData = {
-    		// 		name: 'new',
-    		// 		id: this.$route.params.id
-    		// 	}
-    		// 	await this.$store.dispatch('createProcessRecord', recordData)
-    		// 	this.$message('Готово')
-    		// }
-    	catch(e){}
-    	
+
+        
+    },
+    async proces({added, removed}) {
+     try{
+        if(added){
+          this.loading = true
+          await this.$store.dispatch('createProgrammingProcessRecord', added.element)
+          this.loading = false
+        }
+        if(removed){
+          this.loading = true
+          await this.$store.dispatch('deleteProcessRecordsWithDrag', removed.element)
+          this.loading = false
+        }
+      }catch(e){}
      
-   }
+    }
+  
+     
+   
   }
 }
 

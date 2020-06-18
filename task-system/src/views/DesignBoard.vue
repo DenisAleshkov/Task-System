@@ -65,8 +65,7 @@
 </template>
 
 <script>
-import draggable from "vuedraggable"
-let idGlobal = 8;
+import draggable from "vuedraggable" 
 export default {
   name: "design-board",
   components: {
@@ -103,61 +102,58 @@ export default {
         sum
       };
     },
-    pullFunction() {
-    },
-    
-    async start(val) {
-     //  // this.loading = true
-     // await this.$store.dispatch('deleteStartRecordsWithDrag', val.removed.element)
-     if(val.removed.element){
-      console.log("val start ");
-     }
-     
-     // const startRecord = { ...this.startRecord}
-     // for(let key in startRecord) {
-     //  await this.$store.dispatch('createDesignStartRecord',  startRecord[key])
-     //  }
-     //   this.loading = false
-    },
-    done(){
-      const doneRecord = { ...this.doneRecord}
-      console.log("doneRecord", doneRecord);
-    },
-    async proces(val) {
-      if(val.removed.element){
-      console.log("val process ");
-     }
-      // this.loading = true
-      // await this.$store.dispatch('deleteProcessRecordsWithDrag', val.removed.element)
-      // console.log("val.removed.element", val.removed.element);
-      // const processRecord = { ...this.processRecord}
-      // for(let key in processRecord) {
-      // await this.$store.dispatch('createDesignProcessRecord',  processRecord[key])
-      // }
+    pullFunction(val) {
       
 
-      // // await this.$store.dispatch('createDesignProcessRecord', processRecord)
-      // this.loading = false
     },
-    async log(evt) {
+    
+    async start({added, removed}) {
+      try{
+      if(added){
+          this.loading = true
+          await this.$store.dispatch('createDesignStartRecord', added.element)
+          this.loading = false
+        }
+        if(removed){
+          this.loading = true
+          await this.$store.dispatch('deleteStartRecordsWithDrag', removed.element)
+          this.loading = false
+        }
+      }catch(e){}
+    
+    },
+    async done({added, removed}){
+      try{
+        if(added){
+          this.loading = true
+          await this.$store.dispatch('createDesignDoneRecord', added.element)
+          this.loading = false
+        }
+        if(removed){
+          this.loading = true
+          await this.$store.dispatch('deleteDoneRecordsWithDrag', removed.element)
+          this.loading = false
+        }
+      }catch(e){}
      
-    	try{
-    			// }
-    			// await this.$store.dispatch('createProcessRecord', recordData)
-    			// this.$message('Готово')
-    		}
-    		// if(this.processDone.length){
-    		// 	const recordData = {
-    		// 		name: 'new',
-    		// 		id: this.$route.params.id
-    		// 	}
-    		// 	await this.$store.dispatch('createProcessRecord', recordData)
-    		// 	this.$message('Готово')
-    		// }
-    	catch(e){}
-    	
+
+        
+    },
+    async proces({added, removed}) {
+     try{
+        if(added){
+          this.loading = true
+          await this.$store.dispatch('createDesignProcessRecord', added.element)
+          this.loading = false
+        }
+        if(removed){
+          this.loading = true
+          await this.$store.dispatch('deleteProcessRecordsWithDrag', removed.element)
+          this.loading = false
+        }
+      }catch(e){}
      
-   }
+    }
   }
 }
 
