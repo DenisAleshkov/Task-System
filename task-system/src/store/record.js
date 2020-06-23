@@ -113,7 +113,24 @@ export default {
 				return Object.keys(records).map(key => ({...records[key], id:key }))
 			}catch(e){}
 		},
-		//delete
+		//
+		//Programming
+		async fetchProgrammingProcessRecordsById({dispatch, commit}, id) {
+			try{
+				const uid = await dispatch('getUid')
+				const records = (await firebase.database().ref(`/users/${uid}/categories/programming/categories/${id}/record/process`).once('value')).val() || {}
+				return Object.keys(records).map(key => ({...records[key], id:key }))
+			}catch(e){}
+		},
+		async fetchProgrammingDoneRecordsById({dispatch, commit}, id) {
+			try{
+				const uid = await dispatch('getUid')
+				const records = (await firebase.database().ref(`/users/${uid}/categories/programming/categories/${id}/record/done`).once('value')).val() || {}
+				return Object.keys(records).map(key => ({...records[key], id:key }))
+			}catch(e){}
+		},
+		//
+		//delete design
 		async deleteStartRecordsWithDrag({commit,dispatch}, record){
 			try{
 				const uid = await dispatch('getUid')
@@ -141,5 +158,33 @@ export default {
 				throw e
 			}
 		},
+		// delete programming
+		async deleteProgrammingStartRecordsWithDrag({commit,dispatch}, record){
+			try{
+				const uid = await dispatch('getUid')
+				await firebase.database().ref(`/users/${uid}/categories/programming/categories/${record.categoryId}/record/start/`).child(record.id).remove()
+			}catch(e){
+				commit('setError', e)
+				throw e
+			}
+		},
+		async deleteProgrammingProcessRecordsWithDrag({commit,dispatch}, record){
+			try{
+				const uid = await dispatch('getUid')
+				await firebase.database().ref(`/users/${uid}/categories/programming/categories/${record.categoryId}/record/process/`).child(record.id).remove()
+			}catch(e){
+				commit('setError', e)
+				throw e
+			}
+		},
+		async deleteProgrammingDoneRecordsWithDrag({commit,dispatch}, record){
+			try{
+				const uid = await dispatch('getUid')
+				await firebase.database().ref(`/users/${uid}/categories/programming/categories/${record.categoryId}/record/done/`).child(record.id).remove()
+			}catch(e){
+				commit('setError', e)
+				throw e
+			}
+		}
 	}
 }

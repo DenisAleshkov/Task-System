@@ -82,11 +82,11 @@ export default {
     };
   },
   async mounted() {
-  const id = this.$route.params.id
-	this.startRecord = await this.$store.dispatch('fetchProgrammingStartRecordsById', id)
-  this.processRecord = await this.$store.dispatch('fetchProgrammingProcessRecordsById', id)
-  this.doneRecord = await this.$store.dispatch('fetchProgrammingDoneRecordsById', id)
-	this.loading = false
+    const id = this.$route.params.id
+  	this.startRecord = await this.$store.dispatch('fetchProgrammingStartRecordsById', id)
+    this.processRecord = await this.$store.dispatch('fetchProgrammingProcessRecordsById', id)
+    this.doneRecord = await this.$store.dispatch('fetchProgrammingDoneRecordsById', id)
+  	this.loading = false
   },
   methods: {
     clone({categoryId, comment, date, description, id, investments, name, player, sum}) {
@@ -114,7 +114,7 @@ export default {
         }
         if(removed){
           this.loading = true
-          await this.$store.dispatch('deleteStartRecordsWithDrag', removed.element)
+          await this.$store.dispatch('deleteProgrammingStartRecordsWithDrag', removed.element)
           this.loading = false
         }
       }catch(e){}
@@ -129,7 +129,7 @@ export default {
         }
         if(removed){
           this.loading = true
-          await this.$store.dispatch('deleteDoneRecordsWithDrag', removed.element)
+          await this.$store.dispatch('deleteProgrammingDoneRecordsWithDrag', removed.element)
           this.loading = false
         }
       }catch(e){}
@@ -146,7 +146,7 @@ export default {
         }
         if(removed){
           this.loading = true
-          await this.$store.dispatch('deleteProcessRecordsWithDrag', removed.element)
+          await this.$store.dispatch('deleteProgrammingProcessRecordsWithDrag', removed.element)
           this.loading = false
         }
       }catch(e){}

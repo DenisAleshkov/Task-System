@@ -19,8 +19,7 @@ export default {
 				await firebase.auth().createUserWithEmailAndPassword(email, password)
 				const uid = await dispatch('getUid')
 				await firebase.database().ref(`/users/${uid}/info`).set({
-					name,
-					countTasks: 0
+					name
 				})
 				await firebase.database().ref(`/users/${uid}/categories`).set({
 					design:{

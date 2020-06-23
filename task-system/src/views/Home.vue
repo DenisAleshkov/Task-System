@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home">
       <nav class="navbar">
         <div class="nav-wrapper">
           <a href="/" class="nav-logo">
@@ -69,9 +69,13 @@
   &:hover
     background-color:#2196f3
     color: #ffffff
+.home
+  width: 100%
 .home-banner
   background-color: #2196f3
   color: #ffffff
+  padding-top: 80px
+  padding-bottom: 20px
 .title-text
   font-weight: 700
 .banner-image img
