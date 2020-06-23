@@ -17,6 +17,10 @@
         		<div class="card-content white-text">
           			<span class="card-title">{{element.name}}</span>
         		</div>
+            <button 
+              type="button"
+              @click="$router.push('/send-email/' + element.id)"
+              >Оставить коментарий</button>
       		</div>
         </div>
       </draggable>
@@ -37,6 +41,10 @@
         		<div class="card-content white-text">
           			<span class="card-title">{{element.name}}</span>
         		</div>
+            <button 
+              type="button"
+              @click="$router.push('/send-email/' + element.id)"
+              >Оставить коментарий</button>
       		</div>
       		</div>
       </draggable>
@@ -57,6 +65,10 @@
         		<div class="card-content white-text">
           			<span class="card-title">{{element.name}}</span>
         		</div>
+            <button 
+              type="button"
+              @click="$router.push('/send-email/' + element.id)"
+              >Оставить коментарий</button>
         		</div>
       		</div>
       </draggable>
@@ -171,8 +183,17 @@ export default {
 .list-group-item
   height: 50px
   margin-bottom: 100px
+.card-title
+  justify-content: center
 .card
   display: flex
   justify-content: center
   border-radius: 20px
+  flex-direction: column
+button
+  cursor: pointer
+  border-radius: 20px
+  background-color: #606475
+  color: #fff
+  font-weight: 900 
 </style>

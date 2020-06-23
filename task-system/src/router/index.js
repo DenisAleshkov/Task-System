@@ -86,6 +86,12 @@ const routes = [
     name: 'programming-board',
     meta: { layout: 'main', auth: true },
     component: () => import('../views/ProgrammingBoard.vue')
+  },
+  {
+    path: '/send-email/:id',
+    name: 'send-email',
+    meta: { layout: 'main', auth: true },
+    component: () => import('../views/SendTaskEmail.vue')
   }
 
 ]
