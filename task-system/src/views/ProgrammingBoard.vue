@@ -3,7 +3,7 @@
 <Loader v-if="loading" /> 
   <div class="row board" v-else>
     <div class="col-3 board-item">
-      <h3><i class="small material-icons">build</i>В выполнении</h3>
+      <h3><i class="small material-icons">build</i>К выполнении</h3>
       <draggable
         class="dragArea list-group"
         :list="startRecord"
@@ -101,7 +101,7 @@ export default {
   	this.loading = false
   },
   methods: {
-    clone({categoryId, comment, date, description, id, investments, name, player, sum}) {
+    clone({categoryId, comment, date, description, id, investments, name, email, sum}) {
       return { 
         name,
         categoryId,
@@ -111,7 +111,7 @@ export default {
         id,
         investments,
         name,
-        player,
+        email,
         sum
       };
     },
