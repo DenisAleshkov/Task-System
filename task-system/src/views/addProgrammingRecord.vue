@@ -52,15 +52,15 @@
     </div>
     <div class="input-field">
       <input
-          id="player"
+          id="email"
           type="text"
-          v-model="player"
-          :class="{invalid: $v.player.$dirty && !$v.player.required}"
+          v-model.trim="email"
+          :class="{invalid:  ($v.email.$dirty && !$v.email.required) || !$v.email.email }"
       >
-      <label for="player">Участник</label>
+      <label for="email">Почта участника</label>
       <span 
         class="helper-text invalid"
-         v-if="$v.player.$dirty && !$v.player.required">Введите участника</span>
+         v-if="$v.email.$dirty && !$v.email.required">Введите почту участника</span>
     </div>
     <div class="input-field">
       <input
@@ -107,7 +107,7 @@
   </div>
 </template>
 <script>
-  import {required} from 'vuelidate/lib/validators'
+  import {email, required} from 'vuelidate/lib/validators'
   import {mapGetters} from 'vuex'
   export default {
     data: () => ({
@@ -117,7 +117,7 @@
       name: '',
       description: '',
       comment: '',
-      player: '',
+      email: '',
       date: '',
       investments: '',
       sum: '',
@@ -127,7 +127,7 @@
       name: {required},
       description: {required},
       comment: {required},
-      player: {required},
+      email: {email, required},
       date: {required},
       investments: {required},
       sum: {required}
@@ -164,12 +164,32 @@
                 name: this.name,
                 description: this.description,
                 comment: this.comment,
-                player: this.player,
+                email: this.email,
                 date: this.date,
                 investments: this.investments,
                 sum: this.sum,
                 date: new Date().toJSON()
               }
+              await Email.send({
+                 SecureToken:"60235bd5-e903-4ea0-9f22-6ca9f440b7c9",
+                  Host : "smtp.elasticemail.com",
+                  Username : "batyadem@gmail.com",
+                  Password : "2460762F25C4E036D4FB144D859832D66346",
+                  To : this.email,
+                  From : "batyadem@gmail.com",
+                  Subject : "Task System",
+                  Body : `Hello ${this.name}<${this.email}>,<br>
+                  Programming task has been created for you from TASK SYSTEM<batyadem@email.com>:
+                  Task data: 
+                  description:${this.description};
+                  comment: ${this.comment};
+                  email: ${this.email};
+                  date: ${this.date};
+                  investments: ${this.investments};
+                  sum: ${this.sum};
+                  Best wishes,
+                  TASK SYSTEM team`
+              })
                 await this.$store.dispatch('createProgrammingRecord', recordData)
                 this.$message('Запись успешно создана')
                 this.$v.$reset()

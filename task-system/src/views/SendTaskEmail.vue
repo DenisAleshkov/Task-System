@@ -77,17 +77,33 @@ import { email, required, minLength } from 'vuelidate/lib/validators'
        
         try{
            this.loading = true
-             let template_params = {
-            "to_name": this.email,
-            "from_name": "TASK SYSTEM<batyadem@gmail.com>",
-              "message_html": this.comment
+            const id = this.$route.params.id
+            const commentData = {
+              id: this.$route.params.id,
+              email: this.email,
+              comment: this.comment
             }
-            let service_id = "batyadem_gmail_com";
-            let template_id = "email";
-            await emailjs.send(service_id, template_id, template_params);
+           await Email.send({
+           SecureToken:"60235bd5-e903-4ea0-9f22-6ca9f440b7c9",
+            Host : "smtp.elasticemail.com",
+            Username : "batyadem@gmail.com",
+            Password : "2460762F25C4E036D4FB144D859832D66346",
+            To : this.email,
+            From : "batyadem@gmail.com",
+            Subject : "Task System",
+            Body : `Hello ${this.email},</br>
+            You got a new message from TASK SYSTEM<batyadem@email.com>:
+            ${this.comment}
+            Best wishes,
+            TASK SYSTEM team`
+        }).then(
+         this.$message('Комментарий отправлен')  
+        );
             this.loading = false
-            this.$message('Комментарий отправлен')  
-        }catch(e){this.loading = false }
+            
+        }catch(e){
+           this.$message('Что-то пошло не так. Попробуй отправить комментарий позже')  
+          this.loading = false }
      
     }
   }
